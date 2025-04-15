@@ -1,6 +1,6 @@
 import React from "react"
 import { Router } from "@reach/router"
-import Example from "../components/example"
+import Example from "../components/Example"
 
 const App = () => {
   return (
