@@ -24,30 +24,14 @@ exports.createPages = async ({ actions }) => {
   });
 };
 
-// Add matchPath to pages that need dynamic routing
-exports.onCreatePage = ({ page, actions }) => {
+export const onCreatePage = async ({ page, actions }) => {
   const { createPage, deletePage } = actions;
-  
-  console.log('Processing page in onCreatePage:', page.path);
-  
-  // Add dynamic routing to the example page
-  if (page.path === '/example/' || page.path === '/example') {
-    console.log('Adding matchPath to data-sourced example page');
-    
-    // Delete the original page
-    deletePage(page);
-    
-    // Create a new page with matchPath - matching client implementation
-    const newPage = {
-      ...page,
-      matchPath: `${page.path === '/example' ? '/example/' : page.path}:slug`,
-    };
-    
-    console.log('New matchPath:', newPage.matchPath);
-    
-    // Create the updated page with matchPath
-    createPage(newPage);
-    
-    console.log('Created page with matchPath for dynamic routing');
-  }
+
+  const newPage = {
+    ...page,
+    matchPath: `${page.path}/:slug`,
+  };
+
+  deletePage(page);
+  createPage(newPage);
 };
