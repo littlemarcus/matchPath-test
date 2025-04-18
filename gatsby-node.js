@@ -1,11 +1,9 @@
 const path = require('path');
 const pages = require('./src/data/pages');
 
-// Create pages from data source
 exports.createPages = async ({ actions }) => {
   const { createPage } = actions;
   
-  // Create a page for each item in our data source
   const pageTemplate = path.resolve('./src/templates/page-template.js');
   
   pages.forEach(page => {
@@ -24,14 +22,14 @@ exports.createPages = async ({ actions }) => {
   });
 };
 
-export const onCreatePage = async ({ page, actions }) => {
+exports.onCreatePage = ({ page, actions }) => {
   const { createPage, deletePage } = actions;
-
+    
   const newPage = {
-    ...page,
-    matchPath: `${page.path}/:slug`,
-  };
+      ...page,
+      matchPath: `${page.path}/:slug`,
+    };
 
-  deletePage(page);
-  createPage(newPage);
+    deletePage(page);
+    createPage(newPage);
 };
